@@ -3,10 +3,9 @@ db/*.sqlite
 *.DS_Store
 
 ## Bower ##
-client/lib/react
-client/lib/jquery
-client/lib/lodash
-bower_components
+public/client/lib/react
+public/client/lib/jquery
+public/client/lib/lodash
 
 # Floobits
 .floo
