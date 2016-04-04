@@ -1,0 +1,15 @@
+node_modules
+db/*.sqlite
+*.DS_Store
+
+## Bower ##
+client/lib/react
+client/lib/jquery
+client/lib/lodash
+bower_components
+
+# Floobits
+.floo
+.floobit
+.floo
+.flooignore
