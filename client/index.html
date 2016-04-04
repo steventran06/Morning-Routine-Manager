@@ -6,6 +6,8 @@
 <script src="morningroutine.js"></script>
 </head>
 <body ng-app="morningroutine" ng-controller="routineCtrl">
+
+  <!-- Header -->
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
@@ -20,25 +22,22 @@
       <div class="col-sm-12" class="signin">
         <h1>Sign In</h1>
         <form name="signinForm" ng-submit='signin()'>
-          Username: <input type='text'ng-model='user.username'>
-          Password: <input type="password" ng-model='user.password'>
-          <button>signin</button>
+          Username: <input type='text' ng-model='user.username'><br>
+          Password: <input type="password" ng-model='user.password'><br>
+          <button>Sign In!</button>
         </form>
-        <a href="#/signup">Don't have an account? <strong>Signup</strong> ...</a>
+        <a href="#/signup">Don't have an account? <strong>Sign up</strong> ...</a>
       </div>
     </div>
   </div>
-
 
   <!-- Nav Bar -->
   <div class="container" ng-show="signedin">
     <div class="row">
       <div class="col-sm-12" class="navigation">
-        <ul>
-          <li><a href='#/routines' class='index'>All Links</a></li>
-          <li><a href='#/shorten' class='create'>Shorten</a></li>
-        </ul>
-          <a ng-click='signout()' class='logout'>Logout</a>
+        <a href='#/routines' class='index'>All Links</a>
+        <a href='#/shorten' class='create'>Shorten</a>
+        <a ng-click='signout()' class='logout'>Logout</a>
       </div>
     </div>
   </div>
@@ -47,16 +46,33 @@
   <div class="container" ng-show="signedin">
     <div class="row">
       <div class="col-sm-12" class="newroutine">
+        <h2>Add to your routine!</h2>
         <form name="submitForm" ng-submit='submit()'>
-          <input type='text'ng-model='routine.title'>
-          <input type='text'ng-model='routine.description'>
+          Routine Title:<br><input type='text'ng-model='routine.title'><br>
+          Routine Description:<br><input type='text'ng-model='routine.description'><br>
           <button>Add New Routine</button>
         </form>
       </div>
     </div>
   </div>
 
-  <h1 ng-click="increment()"> {{ display }} </h1>
+  <!-- Routines -->
+  <div class="container" ng-show="signedin">
+    <div class="row">
+      <div class="col-sm-12" class="routines">
+        <div class="routine" ng-repeat="item in routines">
+          <div class="title">{{ item.title }}</div>
+          <div class="description">{{ item.description }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <pre>
+
+  </pre>
+
 
 </body>
 </html>

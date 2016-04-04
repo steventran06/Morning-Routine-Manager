@@ -3,45 +3,52 @@ angular.module('morningroutine', [])
   // create $scope variables for displaying and incrementing count.
 
   $scope.routine = {};
+  $scope.routines = [];
+  $scope.user = {};
   
-  $scope.display = "START CLICKING";
-  $scope.counter = 0;
   $scope.signedin = false;
   $scope.notsignedin = true;
 
-
-  $scope.increment = function() {
-    $scope.counter++;
-    if ($scope.counter % 3 === 0 && $scope.counter % 5 === 0) {
-      $scope.display = "FIZZBUZZ";
-    } else if ($scope.counter % 3 === 0) {
-      $scope.display = "FIZZ";
-    } else if ($scope.counter % 5 === 0) {
-      $scope.display = "BUZZ";
-    } else {
-      $scope.display = 'NOT DIVISIBLE BY 3 OR 5';
-    }
-  };
-
   $scope.submit = function() {
-    Routines.submit($scope.routine);
+    $scope.routines.push($scope.routine);
+    $scope.routine = {};
+
+    // Routines.submit($scope.routine);
   };
 
   $scope.signin = function() {
-    $scope.signin = true;
+    $scope.signedin = true;
     $scope.notsignedin = false;
   };
 
+  $scope.signout = function() {
+    $scope.signedin = false;
+    $scope.notsignedin = true;
+  };
 
 
-
+})
+.directive('routine', function() {
+  return {
+    templateUrl: 'routine.html'
+  };
 })
 .factory('Routines', function ($http) {
 
   var submit = function() {
 
-  }
+  };
 
 });
+// .config(function ($routeProvider, $httpProvider) {
+//   $routeProvider
+//     .when('/*', {
+//       redirectTo: '/'
+//     })
+//     .otherwise({
+//       redirectTo: '/'
+//     });
+
+// });
 
 
