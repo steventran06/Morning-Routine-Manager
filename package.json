@@ -1,0 +1,26 @@
+{
+  "name": "morning-routine-app",
+  "version": "1.0.0",
+  "description": "Morning Routine Manager app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steventran06/Morning-Routine-Manager.git"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "express": "~4.0.0",
+    "nodemon": "^1.2.1",
+    "request": "^2.34.0",
+    "sqlite3": "~3.1.2"
+  },
+  "author": "Steven Tran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/steventran06/Morning-Routine-Manager/issues"
+  },
+  "homepage": "https://github.com/steventran06/Morning-Routine-Manager#readme"
+}
