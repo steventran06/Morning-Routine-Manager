@@ -1,0 +1,62 @@
+<doctype! html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script src="morningroutine.js"></script>
+</head>
+<body ng-app="morningroutine" ng-controller="routineCtrl">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Morning Routine Manager</h1>
+      </div>
+    </div>
+  </div>
+
+    <!-- Sign In -->
+  <div class="container" ng-show="notsignedin">
+    <div class="row">
+      <div class="col-sm-12" class="signin">
+        <h1>Sign In</h1>
+        <form name="signinForm" ng-submit='signin()'>
+          Username: <input type='text'ng-model='user.username'>
+          Password: <input type="password" ng-model='user.password'>
+          <button>signin</button>
+        </form>
+        <a href="#/signup">Don't have an account? <strong>Signup</strong> ...</a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Nav Bar -->
+  <div class="container" ng-show="signedin">
+    <div class="row">
+      <div class="col-sm-12" class="navigation">
+        <ul>
+          <li><a href='#/routines' class='index'>All Links</a></li>
+          <li><a href='#/shorten' class='create'>Shorten</a></li>
+        </ul>
+          <a ng-click='signout()' class='logout'>Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add New Routine -->
+  <div class="container" ng-show="signedin">
+    <div class="row">
+      <div class="col-sm-12" class="newroutine">
+        <form name="submitForm" ng-submit='submit()'>
+          <input type='text'ng-model='routine.title'>
+          <input type='text'ng-model='routine.description'>
+          <button>Add New Routine</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <h1 ng-click="increment()"> {{ display }} </h1>
+
+</body>
+</html>
