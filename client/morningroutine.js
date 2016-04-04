@@ -14,7 +14,7 @@ angular.module('morningroutine', [])
   $scope.submit = function() {
     // add array slot to object
     $scope.routine.counter = $scope.counter;
-    $scope.routines.unshift($scope.routine);
+    $scope.routines.push($scope.routine);
     $scope.counter++;
     // Clear bar
     $scope.routine = {};
