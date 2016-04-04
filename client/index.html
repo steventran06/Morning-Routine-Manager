@@ -48,8 +48,8 @@
       <div class="col-sm-12" class="newroutine">
         <h2>Add to your routine!</h2>
         <form name="submitForm" ng-submit='submit()'>
-          Routine Title:<br><input type='text'ng-model='routine.title'><br>
-          Routine Description:<br><input type='text'ng-model='routine.description'><br>
+          Routine Title:<br><input type='text' ng-model='routine.title'><br>
+          Routine Description:<br><input type='text' ng-model='routine.description'><br>
           <button>Add New Routine</button>
         </form>
       </div>
@@ -59,18 +59,20 @@
   <!-- Routines -->
   <div class="container" ng-show="signedin">
     <div class="row">
-      <div class="col-sm-12" class="routines">
-        <div class="routine" ng-repeat="item in routines">
-          <div class="title">{{ item.title }}</div>
-          <div class="description">{{ item.description }}</div>
-        </div>
+      <button ng-click="remove()">Complete</button>
+      <div class="col-sm-12" ng-repeat="routine in routines">
+        <div class="title">To Do: {{ routine.title }}</div>
+        <div class="description">Steps: {{ routine.description }}</div>
+        <hr>
       </div>
     </div>
   </div>
 
+
+<!-- Testing Routines Array -->
   <hr>
   <pre>
-
+    {{ routines }}
   </pre>
 
 
