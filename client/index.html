@@ -77,7 +77,7 @@
     <div class="row">
       <div class="col-sm-2"></div>
       <div class="col-sm-8">
-        <h3 align="center">Build your schedule<br>Finish all your morning chores<br>Save your energy for the important decisions<br>Never forget your keys or lunch again!</h3>
+        <h4 align="center">Build your schedule<br>Finish all your morning chores<br>Save your energy for the important decisions<br>Never forget your keys or lunch again!</h4>
       </div>
       <div class="col-sm-2"></div>
     </div>
@@ -85,18 +85,24 @@
 
   <!-- Add New Routine -->
   <div class="container" ng-show="signedin">
-    <div class="row"></div>
+      <div class="row">
+        <div class="col-sm-6">
+          <form class="form-leavetime" ng-submit="leavetime()">
+            <h3 class="form-newroutine-heading">When do you have to leave by?</h3>
+            <input type="time" class="form-control" ng-model="user.leavetime">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Leave Time</button>
+          </form>
+        </div>
+
+        <div class="col-sm-6"><br>
+          <div align="center" ng-show="leavetimeset"><h2>You want to leave by {{ user.leavetime }}</h2></div>
+          <div align="center"><h2>It is currently {{ clock | date:'shortTime' }}</h2></div>
+        </div>
+      </div>
     <div class="row">
       <div class="col-sm-6" class="newroutine">
-
-        <form class="form-leavetime" ng-submit="leavetime()">
-          Select a time:
-          <input type="time" class="form-control" ng-model="user.leavetime">
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Leave Time</button>
-        </form>
-
         <form class="form-newroutine" ng-submit='submit()'>
-          <h2 class="form-newroutine-heading">Add to your routine!</h2>
+          <h3 class="form-newroutine-heading">Add to your routine!</h3>
           <input type="text" class="form-control" ng-model='routine.title' required autofocus placeholder="Routine Name">
           <input type="text" class="form-control" ng-model='routine.description' placeholder="Routine Description">
           Importance: <select required id="routineimportance" ng-model='routine.rating'>
@@ -108,14 +114,9 @@
           </select><br>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Add New Routine</button>
         </form>
+      </div>
 
 
-      </div>
-      <div class="col-sm-6"><br><br><br><br>
-        <div align="center" ng-show="leavetimeset"><h2>You want to leave by {{ user.leavetime }}</h2></div>
-        <div align="center"><h2>It is currently {{ clock | date:'shortTime' }}</h2></div>
-      </div>
-    </div>
   </div>
 
   <!-- Routines -->
@@ -165,6 +166,7 @@
       <div class="col-sm-2"></div>
       <div class="col-sm-8">
         <h3 align="center">Finished all tasks in {{ totalTime }}!</h3>
+        <h2>You have to leave by {{ user.leavetime }} and it is {{ clock | date:'shortTime' }}</h2>
       </div>
       <div class="col-sm-2"></div>
     </div>
