@@ -7,32 +7,29 @@
 </head>
 <body ng-app="morningroutine" ng-controller="routineCtrl">
 
-  <!-- Header -->
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <h1>Morning Routine Manager</h1>
+  <!-- Nav Bar -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Morning Routine Manager</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Routines</a></li>
+          <li class="active" ng-click="signout()"><a href="#">Logout</a></li>
+        </ul>
       </div>
     </div>
-  </div>
-
-    <!-- Sign In -->
-  <div class="container" ng-show="notsignedin">
-    <div class="row">
-      <div class="col-sm-12" class="signin">
-        <h1>Sign In</h1>
-        <form name="signinForm" ng-submit='signin()'>
-          Username: <input type='text' ng-model='user.username'><br>
-          Password: <input type="password" ng-model='user.password'><br>
-          <button>Sign In!</button>
-        </form>
-        <a href="#/signup">Don't have an account? <strong>Sign up</strong> ...</a>
-      </div>
-    </div>
-  </div>
+  </nav>
 
   <!-- Nav Bar -->
-  <div class="container" ng-show="signedin">
+  <div class="container">
     <div class="row">
       <div class="col-sm-12" class="navigation">
         <a href='#/routines' class='index'>All Links</a>
@@ -42,15 +39,56 @@
     </div>
   </div>
 
+    <!-- Sign Up -->
+  <div class="container" ng-show="notsignedin">
+    <div class="row">
+      <br><br>
+      <div align="center">
+        <h3>Build your morning schedule and never forget your morning routine!</h3>
+        <img src="http://www.technologytell.com/apple/files/2013/08/Alarm.gif">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6" class="signin">
+        <form class="form-signin" ng-submit='signin()'>
+          <h2 class="form-signin-heading">Please sign in</h2>
+          <label for="inputUser" class="sr-only">Username</label>
+          <input type="text" id="inputUser" class="form-control" name="username" required autofocus>
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+      </div>
+      <div class="col-sm-6" class="signup">
+        <form class="form-signup" ng-submit='signin()'>
+          <h2 class="form-signin-heading">Sign up for a new account</h2>
+          <label for="inputUser" class="sr-only">Username</label>
+          <input type="text" id="inputUser" class="form-control" name="username" required autofocus>
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Add New Routine -->
   <div class="container" ng-show="signedin">
+    <div class="row"><br><br></div>
     <div class="row">
-      <div class="col-sm-12" class="newroutine">
-        <h2>Add to your routine!</h2>
-        <form name="submitForm" ng-submit='submit()'>
-          Routine Title:<br><input type='text' ng-model='routine.title'><br>
-          Routine Description:<br><input type='text' ng-model='routine.description'><br>
-          <button>Add New Routine</button>
+      <div class="col-sm-6" class="newroutine">
+        <form class="form-newroutine" ng-submit='submit()'>
+          <h2 class="form-newroutine-heading">Add to your routine!</h2>
+          <input type="text" class="form-control" ng-model='routine.title' required autofocus placeholder="Routine Name">
+          <input type="text" class="form-control" ng-model='routine.description' placeholder="Routine Description">
+          Importance: <select required id="routineimportance" ng-model='routine.rating'><br>
+            <option value="bg-muted">1</option>
+            <option value="bg-success">2</option>
+            <option value="bg-info">3</option>
+            <option value="bg-warning">4</option>
+            <option value="bg-danger">5</option>
+          </select>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Add New Routine</button>
         </form>
       </div>
     </div>
@@ -59,20 +97,75 @@
   <!-- Routines -->
   <div class="container" ng-show="signedin">
     <div class="row">
-      <button ng-click="remove()">Complete</button>
-      <div class="col-sm-12" ng-repeat="routine in routines">
-        <div class="title">To Do: {{ routine.title }}</div>
-        <div class="description">Steps: {{ routine.description }}</div>
-        <hr>
+      <div class="col-sm-12"><br><br></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5"></div>
+      <div class="col-sm-2">
+        <button class="btn btn-success btn-block" ng-click="remove()">Finished with task!</button>
+      </div>
+      <div class="col-sm-5"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Description</th>
+              <th>Start Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="routine in routines" class="{{ routine.rating }}">
+              <td>{{ routine.title }}</td>
+              <td>{{ routine.description }}</td>
+              <td>{{ routine.time }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Routines -->
+  <div class="container" ng-show="signedin">
+    <div class="row">
+      <div class="col-sm-12"><br><br></div>
+      <h2>finished table
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Description</th>
+              <th>Start Time</th>
+              <th>Length</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="routine in finishedRoutines" class="{{ routine.rating }}">
+              <td>{{ routine.title }}</td>
+              <td>{{ routine.description }}</td>
+              <td>{{ routine.time }}</td>
+              <td>{{ routine.end }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 
 
-<!-- Testing Routines Array -->
+  <!-- Testing Routines Array -->
   <hr>
   <pre>
-    {{ routines }}
+    {{ routines }}<br>
+    {{ finishedRoutines }}<br>
+    {{ time }}
   </pre>
 
 

@@ -3,19 +3,19 @@ angular.module('morningroutine', [])
   // create $scope variables for displaying and incrementing count.
 
   $scope.routine = {};
-  $scope.counter = 0;
   $scope.routines = [];
+  $scope.finishedRoutines = [];
 
-  $scope.user = {};
+
   
   $scope.signedin = false;
   $scope.notsignedin = true;
 
   $scope.submit = function() {
     // add array slot to object
-    $scope.routine.counter = $scope.counter;
-    $scope.routines.push($scope.routine);
-    $scope.counter++;
+    $scope.routine.start = new Date(); // log start time
+    $scope.routine.time = [$scope.routine.start.getHours(), ':', $scope.routine.start.getMinutes(), ":", $scope.routine.start.getSeconds()].join(''); // log readable time
+    $scope.routines.push($scope.routine); // add to todos table
     // Clear bar
     $scope.routine = {};
 
@@ -33,7 +33,10 @@ angular.module('morningroutine', [])
   };
 
   $scope.remove = function(index) {
-    $scope.routines.shift();
+    var removed = $scope.routines.shift();
+    var currentTime = new Date();
+    removed.end = (currentTime - removed.start)/1000;
+    $scope.finishedRoutines.push(removed);
   };
 
 
@@ -47,6 +50,10 @@ angular.module('morningroutine', [])
 });
 // .config(function ($routeProvider, $httpProvider) {
 //   $routeProvider
+//     .when('/signup', {
+//       templateUrl: '/signup.html',
+//       controller: 'routineCtrl'
+//     })
 //     .when('/*', {
 //       redirectTo: '/'
 //     })

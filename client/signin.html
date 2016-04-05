@@ -1,0 +1,22 @@
+  <!-- Sign Up -->
+<div class="container" ng-show="notsignedin">
+  <div class="row"><br><br><br><br>
+    <div class="col-sm-6" class="signin"><br>
+      <h1>Sign In</h1>
+      <form name="signinForm" ng-submit='signin()' action="/login" method="post">
+        Username: <input type='text' name="username"><br>
+        Password: <input type="password" name="password"><br>
+        <button>Sign In!</button>
+      </form>
+    </div>
+    <div class="col-sm-6" class="signin">
+      <p>Don't have an account?</p>
+      <h1>Sign Up</h1>
+      <form name="signinForm" ng-submit='signin()' action="/signup" method="post">
+        Username: <input type='text' name="username"><br>
+        Password: <input type="password" name="password"><br>
+        <button>Sign Up!</button>
+      </form>
+    </div>
+  </div>
+</div>
