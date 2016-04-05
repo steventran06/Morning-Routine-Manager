@@ -3,7 +3,12 @@ var partials = require('express-partials');
 var session = require('express-session');
 var bcrypt = require('bcrypt-nodejs');
 var bodyParser = require('body-parser');
-var db = require('./config');
+
+var db = require('./app/config');
+var Users = require('./app/collections/users');
+var User = require('./app/models/user');
+var Routines = require('./app/collections/routines');
+var Routine = require('./app/models/routine');
 
 
 var app = express();
@@ -24,7 +29,7 @@ app.post('/login', function(req, res) {
   db.knex('users').select('password').where({username: username}).then(function (queryResults) {
     if (queryResults.length === 0) {
       console.log('Username does not exist');
-      res.render('login-error');
+      res.redirect('/signup');
     } else {
       var password = queryResults[0].password;
       bcrypt.compare(inputPw, password, function (err, result) {
@@ -41,7 +46,7 @@ app.post('/login', function(req, res) {
             });
           } else {
             console.log('Wrong password');
-            res.render('login-error');
+            res.render('/signup');
           }
         }
       });
@@ -78,7 +83,6 @@ app.post('/signup', function(req, res) {
     }
   });
 });
-
 
 
 app.set('port', (process.env.PORT || 4568));
