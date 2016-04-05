@@ -44,8 +44,8 @@
     <div class="row">
       <br><br>
       <div align="center">
-        <h3>Build your morning schedule and never forget your morning routine!</h3>
-        <img src="http://www.technologytell.com/apple/files/2013/08/Alarm.gif">
+        <h3>Build your morning schedule and never forget all your important tasks!</h3>
+        <img src="assets/alarm.gif">
       </div>
     </div>
     <div class="row">
@@ -53,7 +53,7 @@
         <form class="form-signin" ng-submit='signin()'>
           <h2 class="form-signin-heading">Please sign in</h2>
           <label for="inputUser" class="sr-only">Username</label>
-          <input type="text" id="inputUser" class="form-control" name="username" required autofocus>
+          <input type="text" id="inputUser" class="form-control" name="username" placeholder="Username or Email" required autofocus>
           <label for="inputPassword" class="sr-only">Password</label>
           <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
@@ -63,7 +63,7 @@
         <form class="form-signup" ng-submit='signin()'>
           <h2 class="form-signin-heading">Sign up for a new account</h2>
           <label for="inputUser" class="sr-only">Username</label>
-          <input type="text" id="inputUser" class="form-control" name="username" required autofocus>
+          <input type="text" id="inputUser" class="form-control" name="username" placeholder="Username or Email" required autofocus>
           <label for="inputPassword" class="sr-only">Password</label>
           <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
@@ -72,22 +72,33 @@
     </div>
   </div>
 
-  <!-- Add New Routine -->
   <div class="container" ng-show="signedin">
     <div class="row"><br><br></div>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <h3 align="center">Build your schedule<br>Finish all your morning chores<br>Save your energy for the important decisions<br>Never forget your keys or lunch again!</h3>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </div>
+
+  <!-- Add New Routine -->
+  <div class="container" ng-show="signedin">
+    <div class="row"></div>
     <div class="row">
       <div class="col-sm-6" class="newroutine">
         <form class="form-newroutine" ng-submit='submit()'>
           <h2 class="form-newroutine-heading">Add to your routine!</h2>
           <input type="text" class="form-control" ng-model='routine.title' required autofocus placeholder="Routine Name">
           <input type="text" class="form-control" ng-model='routine.description' placeholder="Routine Description">
-          Importance: <select required id="routineimportance" ng-model='routine.rating'><br>
+          Importance: <select required id="routineimportance" ng-model='routine.rating'>
             <option value="bg-muted">1</option>
             <option value="bg-success">2</option>
             <option value="bg-info">3</option>
             <option value="bg-warning">4</option>
             <option value="bg-danger">5</option>
-          </select>
+          </select><br>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Add New Routine</button>
         </form>
       </div>
@@ -100,11 +111,12 @@
       <div class="col-sm-12"><br><br></div>
     </div>
     <div class="row">
-      <div class="col-sm-5"></div>
-      <div class="col-sm-2">
-        <button class="btn btn-success btn-block" ng-click="remove()">Finished with task!</button>
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <button class="btn btn-success btn-block" ng-click="start()">Start your morning routine!</button>
+        <button class="btn btn-primary btn-block" ng-click="remove(); start()">Finished with task!</button>
       </div>
-      <div class="col-sm-5"></div>
+      <div class="col-sm-4"></div>
     </div>
     <div class="row">
       <div class="col-sm-12">
@@ -132,7 +144,7 @@
   <div class="container" ng-show="signedin">
     <div class="row">
       <div class="col-sm-12"><br><br></div>
-      <h2>finished table
+      <h2>Completed Items</h2>
     </div>
 
     <div class="row">
@@ -143,7 +155,7 @@
               <th>Task</th>
               <th>Description</th>
               <th>Start Time</th>
-              <th>Length</th>
+              <th>Time to Complete</th>
             </tr>
           </thead>
           <tbody>
@@ -151,7 +163,7 @@
               <td>{{ routine.title }}</td>
               <td>{{ routine.description }}</td>
               <td>{{ routine.time }}</td>
-              <td>{{ routine.end }}</td>
+              <td>{{ routine.duration }}</td>
             </tr>
           </tbody>
         </table>
@@ -165,7 +177,8 @@
   <pre>
     {{ routines }}<br>
     {{ finishedRoutines }}<br>
-    {{ time }}
+    {{ minutes }}<br>
+    {{ seconds }}
   </pre>
 
 

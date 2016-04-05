@@ -13,13 +13,9 @@ angular.module('morningroutine', [])
 
   $scope.submit = function() {
     // add array slot to object
-    $scope.routine.start = new Date(); // log start time
-    $scope.routine.time = [$scope.routine.start.getHours(), ':', $scope.routine.start.getMinutes(), ":", $scope.routine.start.getSeconds()].join(''); // log readable time
     $scope.routines.push($scope.routine); // add to todos table
     // Clear bar
     $scope.routine = {};
-
-    // Routines.submit($scope.routine);
   };
 
   $scope.signin = function() {
@@ -32,11 +28,37 @@ angular.module('morningroutine', [])
     $scope.notsignedin = true;
   };
 
+  $scope.start = function() {
+    $scope.routines.forEach(function (routine) {
+      routine.start = new Date();
+      var min = routine.start.getMinutes();
+      var sec = routine.start.getSeconds();
+      if (min < 10) {
+        min = '0' + min.toString();
+      }
+      if (sec < 10) {
+        sec = '0' + sec.toString();
+      }
+      routine.time = [routine.start.getHours(), ':', min, ":", sec].join(''); // log readable time
+    });
+  };
+
   $scope.remove = function(index) {
     var removed = $scope.routines.shift();
     var currentTime = new Date();
-    removed.end = (currentTime - removed.start)/1000;
+    var totalTime = parseInt((currentTime - removed.start)/1000);
+    var minutes = Math.floor(totalTime / 60);
+    var seconds = Math.floor(totalTime % 60);
+    if (seconds < 10) {
+      seconds = '0' + seconds.toString();
+    }
+    removed.duration = [minutes, ':', seconds, ' minutes'].join('');
     $scope.finishedRoutines.push(removed);
+
+    // $scope.routines.forEach(function (routine) {
+    //   routine.start = currentTime;
+    //   routine.time = [routine.start.getHours(), ':', routine.start.getMinutes(), ":", routine.start.getSeconds()].join(''); // log readable time
+    // });
   };
 
 
