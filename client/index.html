@@ -28,18 +28,8 @@
     </div>
   </nav>
 
-  <!-- Nav Bar -->
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12" class="navigation">
-        <a href='#/routines' class='index'>All Links</a>
-        <a href='#/shorten' class='create'>Shorten</a>
-        <a ng-click='signout()' class='logout'>Logout</a>
-      </div>
-    </div>
-  </div>
 
-    <!-- Sign Up -->
+    <!-- Sign In/Sign Up -->
   <div class="container" ng-show="notsignedin">
     <div class="row">
       <br><br>
@@ -52,20 +42,39 @@
       <div class="col-sm-6" class="signin">
         <form class="form-signin" ng-submit='signin()'>
           <h2 class="form-signin-heading">Please sign in</h2>
+          <!-- SIGN IN ERROR -->
+          <div class="alert alert-danger" role="alert" ng-show="userdoesntexist">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            User does not exist
+          </div>
+          <div class="alert alert-danger" role="alert" ng-show="wrongpassword">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            Password is incorrect
+          </div>
+          <!-- SIGN IN ERROR -->
           <label for="inputUser" class="sr-only">Username</label>
-          <input type="text" id="inputUser" class="form-control" name="username" placeholder="Username or Email" required autofocus>
+          <input type="text" id="inputUser" class="form-control" name="username" placeholder="Username or Email" ng-model="user.username" required autofocus>
           <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+          <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" ng-model="user.password" required>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
       </div>
       <div class="col-sm-6" class="signup">
-        <form class="form-signup" ng-submit='signin()'>
-          <h2 class="form-signin-heading">Sign up for a new account</h2>
+        <form class="form-signup" ng-submit='signup()'>
+          <h2 class="form-signup-heading">Create a new account</h2>
+          <!-- SIGN UP ERROR -->
+          <div class="alert alert-danger" role="alert" ng-show="usernametaken">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            Username is taken
+          </div>
+          <!-- SIGN UP ERROR -->
           <label for="inputUser" class="sr-only">Username</label>
-          <input type="text" id="inputUser" class="form-control" name="username" placeholder="Username or Email" required autofocus>
+          <input type="text" id="inputUser" class="form-control" name="username" placeholder="Username or Email" ng-model="user.username" required autofocus>
           <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+          <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" ng-model="user.password" required>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
         </form>
       </div>
@@ -73,10 +82,11 @@
   </div>
 
   <div class="container" ng-show="signedin">
-    <div class="row"><br><br></div>
+    <div class="row"><br><br><br></div>
     <div class="row">
       <div class="col-sm-2"></div>
       <div class="col-sm-8">
+        <h3 align="center">Hello {{ user.username }}!</h3>
         <h4 align="center">Build your schedule<br>Finish all your morning chores<br>Save your energy for the important decisions<br>Never forget your keys or lunch again!</h4>
       </div>
       <div class="col-sm-2"></div>
@@ -93,9 +103,8 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit">Leave Time</button>
           </form>
         </div>
-
         <div class="col-sm-6"><br>
-          <div align="center" ng-show="leavetimeset"><h2>You want to leave by {{ user.leavetime }}</h2></div>
+          <div align="center"><h2>You want to leave by {{ user.leavetime }}</h2></div>
           <div align="center"><h2>It is currently {{ clock | date:'shortTime' }}</h2></div>
         </div>
       </div>
@@ -119,7 +128,7 @@
 
   </div>
 
-  <!-- Routines -->
+  <!-- Routines To Do -->
   <div class="container" ng-show="signedin">
     <div class="row">
       <div class="col-sm-12"><br><br></div>
@@ -127,8 +136,8 @@
     <div class="row">
       <div class="col-sm-4"></div>
       <div class="col-sm-4">
-        <button class="btn btn-success btn-block ng-hide" ng-click="start()" ng-show="startbutton">Start your morning routine!</button>
-        <button class="btn btn-primary btn-block" ng-click="remove(); start()">Finished with task!</button>
+        <button class="btn btn-success btn-block" ng-click="start()" ng-show="startbutton">Start your morning routine!</button>
+        <button class="btn btn-primary btn-block" ng-click="remove(); start()" ng-show="tasks">Finished with task!</button>
       </div>
       <div class="col-sm-4"></div>
     </div>
@@ -156,7 +165,7 @@
     </div>
   </div>
 
-  <!-- Routines -->
+  <!-- Completed Routines -->
   <div class="container" ng-show="signedin">
     <div class="row">
       <div class="col-sm-12"><br><br></div>
@@ -166,7 +175,7 @@
       <div class="col-sm-2"></div>
       <div class="col-sm-8">
         <h3 align="center">Finished all tasks in {{ totalTime }}!</h3>
-        <h2>You have to leave by {{ user.leavetime }} and it is {{ clock | date:'shortTime' }}</h2>
+        <h2 align="center">You have to leave by {{ user.leavetime }} and it is {{ clock | date:'shortTime' }}</h2>
       </div>
       <div class="col-sm-2"></div>
     </div>
@@ -194,17 +203,6 @@
       </div>
     </div>
   </div>
-
-
-  <!-- Testing Routines Array -->
-  <hr>
-  <pre>
-    {{ routines }}
-    {{ user.leavetime }}
-  </pre>
-
-
-
 
 </body>
 </html>
